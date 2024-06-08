@@ -1,0 +1,120 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.bike-info, .rental-extension {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 48%;
+}
+.bike-info {
+  display: flex;
+  flex-direction: column;
+}
+.bike-header {
+  display: flex;
+  align-items: center;
+}
+.bike-header img {
+  width: 200px;
+  height: auto;
+  border-radius: 10px;
+  margin-right: 20px;
+}
+.bike-details h1 {
+  margin: 0;
+  font-size: 24px;
+}
+.bike-details p {
+  margin: 5px 0;
+  color: #555;
+}
+.features, .rental-policy {
+  margin-top: 20px;
+}
+.features h3, .rental-policy h3 {
+  font-size: 18px;
+  color: #333;
+}
+.rental-policy div {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.rental-policy div::before {
+  content: "✔";
+  color: #007bff;
+  font-weight: bold;
+  margin-right: 10px;
+}
+.rental-extension h2 {
+  margin-top: 0;
+  font-size: 22px;
+}
+.rental-extension label {
+  display: block;
+  margin-top: 10px;
+}
+.rental-extension input, .rental-extension select, .rental-extension textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.rental-extension button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 15px;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.rental-extension button:hover {
+  background-color: #0056b3;
+}
+.total-amount {
+  margin-top: 20px;
+  font-size: 18px;
+  color: #333;
+}
+.total-amount strong {
+  font-size: 20px;
+}
+.features {
+  margin-top: 10px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  margin: 5px 0;
+}
+.feature-item img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+.feature-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+.feature-item a:hover {
+  text-decoration: underline;
+}
+.feature-list {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}

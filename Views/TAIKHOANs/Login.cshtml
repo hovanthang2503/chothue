@@ -1,0 +1,59 @@
+﻿@model chothuexe1.Models.TAIKHOAN
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="~/fonts/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="form">
+
+        <div class="tab-content">
+            <div id="login">
+                <h1>Đăng Nhập</h1>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="field-wrap">
+                        <label class="phone-label">
+                            Số điện thoại<span class="req">*</span>
+                        </label>
+                        @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", required = "required", autocomplete = "off" } })
+                    </div>
+
+                    <div class="field-wrap">
+                        <label class="password-label">
+                            Mật Khẩu<span class="req">*</span>
+                        </label>
+                        @Html.EditorFor(model => model.MatKhau, new { htmlAttributes = new { @class = "form-control", required = "required", autocomplete = "off", type = "password" } })
+                    </div>
+
+                    <p class="forgot"><a href="#">Quên mật khẩu?</a></p>
+
+                    <button class="button button-block" type="submit">Đăng Nhập</button>
+                }
+
+                <p>@Html.ActionLink("Bạn chưa có tài khoản ?Đăng ký", "Signup", "TAIKHOANs")</p>
+                @* Display the error message directly on the page *@
+                @if (ViewBag.Notification != null)
+                {
+                     <p class="error-message" style="color: red;">@ViewBag.Notification</p>
+                }
+            </div>
+
+
+        </div><!-- tab-content -->
+    </div> <!-- /form -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</body>
+</html>
+
+

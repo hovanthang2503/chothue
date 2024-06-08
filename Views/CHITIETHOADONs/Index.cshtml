@@ -1,0 +1,282 @@
+﻿@model IEnumerable<chothuexe1.Models.CHITIETHOADON>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <title>Hóa Đơn</title>
+
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/fonts/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/fonts/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/fonts/css/responsive.css" rel="stylesheet" />
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .bike-card {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            width: 900px;
+            margin-bottom: 20px;
+            display: flex;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .bike-card img {
+                width: 240px;
+                height: 190px;
+                border-radius: 8px;
+                margin-right: 20px;
+            }
+
+        .bike-details {
+            flex: 1;
+        }
+
+            .bike-details h2 {
+                margin-bottom: 0;
+                margin-top: 0;
+                padding-bottom: 10px;
+            }
+
+            .bike-details ul {
+                list-style: none;
+                padding: 0;
+            }
+
+                .bike-details ul li {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 10px;
+                }
+
+                    .bike-details ul li img {
+                        width: 24px; /* Điều chỉnh kích thước biểu tượng */
+                        height: 24px;
+                        margin-right: 10px;
+                    }
+
+        .rent-details-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .rent-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-end; /* Căn lề phải */
+            min-width: 200px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #f8f8f8;
+        }
+
+            .rent-details p {
+                margin: 5px 0;
+                font-size: 18px;
+                color: #ff6600;
+                text-align: right; /* Căn lề phải */
+            }
+
+            .rent-details button {
+                background-color: #1ab188; /* Màu nền */
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 16px;
+                text-align: center; /* Căn giữa */
+                align-self: center; /* Đặt nút vào giữa */
+            }
+
+                .rent-details button:hover {
+                    background-color: #169d75; /* Màu khi di chuột */
+                }
+
+            .rent-details .total-cost, .rent-details .additional-info {
+                color: black;
+            }
+
+        h1 {
+            color: #169d75;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body class="sub_page">
+    <div class="hero_area">
+        <!-- header section starts -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container">
+                    <a class="navbar-brand" href="index.html">
+                        <span>
+                            CHO THUÊ XE BÌNH MINH
+                        </span>
+                    </a>
+
+                    <div class="navbar-collapse" id="">
+                        <div class="user_option">
+                            <a href="">
+                                Login
+                            </a>
+                        </div>
+                        <div class="custom_menu-btn">
+                            <button onclick="openNav()">
+                                <span class="s-1"> </span>
+                                <span class="s-2"> </span>
+                                <span class="s-3"> </span>
+                            </button>
+                        </div>
+                        <div id="myNav" class="overlay">
+                            <div class="overlay-content">
+                                <a href="index.html">Home</a>
+                                <a href="bill.html">Hóa Đơn</a>
+                                <!-- <a href="car.html">Xe</a> -->
+                                <a href="contact.html">Contact Us</a>
+                                <a href="login.html">Đăng Nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
+    </div>
+
+    <!-- phần gia hạn -->
+    <div class="container">
+        <h1>HOÁ ĐƠN THUÊ XE</h1>
+
+        @foreach (var item in Model)
+        {
+            <div class="bike-card">
+                <img src="~/fonts/images/@item.XETHUE.AnhDaiDien" alt="Wave RSX FI 110">
+                <div class="bike-details">
+                    <h2>@item.XETHUE.TenXe</h2>
+                    <ul>
+                        <li><img src="~/fonts/images/helmet_icon.png" alt="Mũ bảo hiểm"> Mũ bảo hiểm đi kèm</li>
+                        <li><img src="~/fonts/images/maintenance_icon.png" alt="Bảo dưỡng"> Xe được bảo dưỡng định kỳ</li>
+                        <li><img src="~/fonts/images/customer_service_icon.png" alt="Dịch vụ khách hàng"> Dịch vụ khách hàng 24/7 của THUEXERE</li>
+                        <li><img src="~/fonts/images/insurance_icon.png" alt="Bảo hiểm"> Bảo hiểm xe đi kèm</li>
+                        <li><img src="~/fonts/images/unlimited_icon.png" alt="Không giới hạn"> Không giới hạn số đạm</li>
+                        <li><img src="~/fonts/images/document_icon.png" alt="Giấy tờ"> Giấy tờ xe photo</li>
+                        <li><img src="~/fonts/images/wifi_icon.png" alt="WiFi"> Bộ phát Wifi di động</li>
+                    </ul>
+                </div>
+                <div class="rent-details-container">
+                    <div class="rent-details">
+                        <p>150.000 đ /ngày</p>
+                        <p>@item.HOADON.NgayBatDau</p>
+                        <p class="total-cost">Tổng 150.000 đ cho 1 ngày</p>
+                        <p class="additional-info">Không bao gồm thuế và (các) bảo hiểm</p>
+                        <button>Gia hạn thêm</button>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <!-- contact section -->
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="heading_container">
+                <h2>Request A Call Back</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="form_container">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputName4" placeholder="Name ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputSubject4" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputMessage" placeholder="Message">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- end contact section -->
+    <!-- map section -->
+    <section class="map_section">
+        <div class="map_container">
+            <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France" width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+    <!-- end map section -->
+    <!-- footer section -->
+    <footer class="container-fluid footer_section">
+        <p>
+            Copyright &copy; 2020 All Rights Reserved. Design by
+            <a href="https://html.design/">Free Html Templates</a>
+        </p>
+    </footer>
+    <!-- footer section -->
+
+    <script src="~/fonts/js/jquery-3.4.1.min.js"></script>
+    <script src="~/fonts/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="~/fonts/js/custom.js"></script>
+
+</body>
+</html>
