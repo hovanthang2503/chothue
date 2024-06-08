@@ -1,56 +1,435 @@
-﻿@model chothuexe1.Models.CHITIETHOADON
+﻿@model chothuexe1.Models.HOADON
 
 @{
     ViewBag.Title = "Edit Chi Tiet Hoa Don";
 }
 
-<h2>Edit Chi Tiet Hoa Don</h2>
+<!DOCTYPE html>
+<html>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
 
-<div class="form-horizontal">
-    <h4>CHITIETHOADON</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <title>Chi Tiết Hóa Đơn</title>
 
-    @Html.HiddenFor(model => model.MaHD)
-    @Html.HiddenFor(model => model.MaXe)
+    <!-- slider stylesheet -->
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ThoiGianThue, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.ThoiGianThue, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.ThoiGianThue, "", new { @class = "text-danger" })
-        </div>
+    <!-- bootstrap core css -->
+    <link rel="stylesheet" type="text/css" href="~/fonts/css/bootstrap.css" />
+
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Poppins:400,600,700&display=swap"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="~/fonts/css/style.css" rel="stylesheet" />
+    <!-- responsive style -->
+    <link href="~/fonts/css/responsive.css" rel="stylesheet" />
+
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .content-container {
+            padding-bottom: 50px;
+            padding-top: 21px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        .bike-info,
+        .rental-extension {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 49%;
+        }
+
+        .bike-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bike-header {
+            display: flex;
+            align-items: center;
+        }
+
+            .bike-header img {
+                width: 200px;
+                height: auto;
+                border-radius: 10px;
+                margin-right: 20px;
+            }
+
+        .bike-details h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .bike-details p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .features,
+        .rental-policy {
+            margin-top: 20px;
+        }
+
+            .features h3,
+            .rental-policy h3 {
+                font-size: 18px;
+                color: #333;
+            }
+
+            .rental-policy div {
+                margin: 10px 0;
+                display: flex;
+                align-items: center;
+            }
+
+                .rental-policy div::before {
+                    content: "✔";
+                    color: #007bff;
+                    font-weight: bold;
+                    margin-right: 10px;
+                }
+
+        .rental-extension h2 {
+            margin-top: 0;
+            font-size: 22px;
+        }
+
+        .rental-extension label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        .rental-extension input,
+        .rental-extension select,
+        .rental-extension textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .rental-extension button {
+            margin-top: 20px;
+            width: 100%;
+            padding: 15px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .rental-extension button:hover {
+                background-color: #0056b3;
+            }
+
+        .total-amount {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+            .total-amount strong {
+                font-size: 20px;
+            }
+
+        .features {
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin: 5px 0;
+        }
+
+            .feature-item img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+                margin-left: 10px;
+            }
+
+            .feature-item a {
+                color: #007bff;
+                text-decoration: none;
+            }
+
+                .feature-item a:hover {
+                    text-decoration: underline;
+                }
+
+        .feature-list {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .feature-item img,
+        .learn-more img {
+            width: 20px;
+            /* Đặt kích thước mong muốn */
+            height: 20px;
+            /* Đặt kích thước mong muốn */
+        }
+
+        .learn-more {
+            margin-left: 200px;
+            background-color: #007bff;
+            /* Màu nền cho nút "Tìm hiểu thêm" */
+            color: white;
+            /* Màu chữ */
+            padding: 2px 15px;
+            /* Điều chỉnh padding cho nút */
+            border-radius: 5px;
+            /* Bo góc cho nút */
+            text-decoration: none;
+            display: inline-block;
+            /* Để nút hiển thị như một khối */
+        }
+
+            .learn-more:hover {
+                background-color: #0056b3;
+                /* Màu nền khi rê chuột vào nút */
+            }
+    </style>
+</head>
+
+<body class="sub_page">
+    <div class="hero_area">
+        <!-- header section starts -->
+        <header class="header_section">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container">
+                    <a class="navbar-brand" href="index.html">
+                        <span>
+                            CHO THUÊ XE BÌNH MINH
+                        </span>
+                    </a>
+
+                    <div class="navbar-collapse" id="">
+                        <div class="user_option">
+                            @if (Session["HoTen"] != null)
+                            {
+                                <span>@Session["HoTen"].ToString()</span>
+                                <a href="@Url.Action("Logout", "TAIKHOANs")">, Đăng Xuất</a> }
+                            else
+                            {
+                                <a href="@Url.Action("Login", "TAIKHOANs")">Đăng Nhập</a>
+                                <a href="@Url.Action("Signup", "TAIKHOANs")">/ Đăng Ký</a>}
+                        </div>
+                        <div class="custom_menu-btn">
+                            <button onclick="openNav()">
+                                <span class="s-1"> </span>
+                                <span class="s-2"> </span>
+                                <span class="s-3"> </span>
+                            </button>
+                        </div>
+                        <div id="myNav" class="overlay">
+                            <div class="overlay-content">
+                                <a href="index.html">Home</a>
+                                <a href="bill.html">Hóa Đơn</a>
+                                <a href="contact.html">Contact Us</a>
+                                <a href="#">Đăng Nhập</a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <!-- end header section -->
     </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.TrangThaiThue, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.TrangThaiThue, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.TrangThaiThue, "", new { @class = "text-danger" })
+    <!-- phần gia hạn -->
+    <div class="content-container">
+        <div class="bike-info">
+            <div class="bike-header">
+                @foreach (var item in Model.CHITIETHOADONs)
+                {
+                    <img src="~/fonts/images/@item.XETHUE.AnhDaiDien" alt="Wave RSX FI 110">
+                }
+                <div class="bike-details">
+                    @foreach (var item in Model.CHITIETHOADONs)
+                    {
+                        <h1>@item.XETHUE.TenXe</h1>
+                        <p>Cung cấp bởi BINHMINH</p>
+                        <p>Đời xe: 2022</p>
+                        <p>Loại xe: Xe số</p>
+                        <div class="features">
+                            <h3>Tiện ích:</h3>
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <img src="~/fonts/images/icon1.png" alt="icon">
+                                    <a href="#">Bảo hiểm xe</a>
+                                </div>
+                                <div class="feature-item">
+                                    <img src="~/fonts/images/icon3.jpg" alt="icon">
+                                    <a href="#">Áp dụng hoàn tiền</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+            <div class="rental-policy">
+                <b>Chính sách thuê xe</b>
+                <a href="#" class="learn-more">Tìm hiểu thêm</a>
+                <div>Trả lại nhiên liệu như đã nhận</div>
+                <div>Bảo hiểm xe đi kèm</div>
+                <div>Không giới hạn số dặm</div>
+                <div>Dịch vụ khách hàng 24/24</div>
+            </div>
         </div>
+        @using (Html.BeginForm("GiaHanThueXe", "HOADONs", FormMethod.Post))
+        {
+            <div class="rental-extension" style=" width: 700px; margin-left: 20px;">
+                <h2>Gia hạn thuê xe</h2>
+                <input type="hidden" id="MaHD" name="MaHD" value="@Model.MaHD" />
+                <label for="rent-date">Ngày bắt đầu</label>
+                @{
+                    string formattedDate = Model.NgayBatDau.HasValue ? Model.NgayBatDau.Value.ToString("dd/MM/yyyy") : string.Empty;
+                }
+                <input type="text" id="rent-date" name="rent-date" value="@formattedDate" readonly>
+                @foreach (var chiTiet in Model.CHITIETHOADONs)
+                {
+                    int? thoiGianThue = chiTiet.ThoiGianThue;
+                    DateTime newDate = Model.NgayBatDau.HasValue ? Model.NgayBatDau.Value.AddDays(thoiGianThue ?? 0) : DateTime.MinValue;
+                    string formattedNewDate = newDate.ToString("dd/MM/yyyy");
+                    <label for="return-date">Ngày phải trả:</label>
+                    <input type="text" id="return-date" name="return-date" value="@formattedNewDate" readonly>
+                }
+                <label for="extend-days">Thuê thêm ngày:</label>
+                <select id="extend-days" name="extend-days">
+                    <option value="1">1 Ngày</option>
+                    <option value="2">2 Ngày</option>
+                    <option value="3">3 Ngày</option>
+                    <option value="4">4 Ngày</option>
+                    <option value="5">5 Ngày</option>
+                </select>
+                <label for="notes">Ghi chú:</label>
+                <textarea id="notes" name="notes" placeholder="Điền ghi chú"></textarea>
+                @foreach (var chiTiet in Model.CHITIETHOADONs)
+                {
+                    int? thoiGianThue = chiTiet.ThoiGianThue;
+                    decimal giaThue = chiTiet.XETHUE.GiaThue;
+                    decimal? tongtien = thoiGianThue * giaThue;
+                    <p class="total-amount">Tổng tiền: <strong>@tongtien VND</strong></p>
+                }
+                <button id="btnGiaHan" type="submit">Gia Hạn Thêm</button>
+            </div>
+        }
+
     </div>
 
-    <div class="form-group">
-        <label>Thời gian thuê</label>
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.HOADON.NgayBatDau, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.HOADON.NgayBatDau, "", new { @class = "text-danger" })
+    <!-- contact section -->
+    <section class="contact_section layout_padding">
+        <div class="container">
+            <div class="heading_container">
+                <h2>Request A Call Back</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="form_container">
+                        <form>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputName4" placeholder="Name ">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <input type="text" class="form-control" id="inputSubject4" placeholder="Phone">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col">
+                                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email id">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="inputMessage" placeholder="Message">
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="contact_items">
+                <a href="">
+                    <div class="img-box">
+                        <img src="images/location.png" alt="">
+                    </div>
+                    <h6>Loram Ipusum ari lo elisant na</h6>
+                </a>
+                <a href="">
+                    <div class="img-box">
+                        <img src="images/call.png" alt="">
+                    </div>
+                    <h6>(+12 1234456789)</h6>
+                </a>
+                <a href="">
+                    <div class="img-box">
+                        <img src="images/mail.png" alt="">
+                    </div>
+                    <h6>demo@gmail.com</h6>
+                </a>
+            </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
+    </section>
+    <!-- end contact section -->
+    <!-- map section -->
+    <section class="map_section">
+        <div class="map_container">
+            <div class="map-responsive">
+                <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyA0s1a7phLN0iaD6-UE7m4qP-z21pH0eSc&q=Eiffel+Tower+Paris+France"
+                        width="600" height="300" frameborder="0" style="border:0; width: 100%; height:100%" allowfullscreen></iframe>
+            </div>
         </div>
-    </div>
-</div>
-}
+    </section>
+    <!-- end map section -->
+    <!-- footer section -->
+    <footer class="container-fluid footer_section">
+        <p>
+            Copyright &copy; 2020 All Rights Reserved. Design by
+            <a href="https://html.design/">Free Html Templates</a>
+        </p>
+    </footer>
+    <!-- footer section -->
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+    <script src="~/fonts/js/jquery-3.4.1.min.js"></script>
+    <script src="~/fonts/js/bootstrap.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="~/fonts/js/custom.js"></script>
 
+</body>
+
+
+</html>

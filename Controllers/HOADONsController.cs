@@ -14,25 +14,60 @@ namespace chothuexe1.Controllers
         // GET: HOADONs
         public ActionResult Index()
         {
-            return View(db.CHITIETHOADONs.ToList());
-        }
+            int? maTK = Session["MaTK"] as int?;
 
-        // GET: HOADONs/Edit/5?maxe=10
-        public ActionResult Chitiet(int? id, int? maxe)
-        {
-            if (id == null || maxe == null)
+            if (maTK == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "TAIKHOANs");
             }
 
-            CHITIETHOADON chiTietHoaDon = db.CHITIETHOADONs.FirstOrDefault(c => c.MaHD == id && c.MaXe == maxe);
-            if (chiTietHoaDon == null)
+            // Truy vấn để lấy các hóa đơn và chi tiết hóa đơn liên quan
+            var hoaDons = db.HOADONs
+                           .Where(h => h.MaTK == maTK)
+                           .Include(h => h.CHITIETHOADONs.Select(c => c.XETHUE))
+                           .ToList();
+
+            // Truyền danh sách hóa đơn và chi tiết hóa đơn đến view
+            return View(hoaDons);
+        }
+        // GET: HOADONs/Chitiet/id
+        public ActionResult Chitiet(int id)
+        {
+            // Fetch the invoice based on MaHD
+            var hoaDon = db.HOADONs.Include("CHITIETHOADONs").FirstOrDefault(h => h.MaHD == id);
+            if (hoaDon == null)
             {
                 return HttpNotFound();
             }
 
-            return View(chiTietHoaDon);
+            return View(hoaDon);
         }
 
+        // POST: HOADONs/GiaHanThueXe
+        [HttpPost]
+        public ActionResult GiaHanThueXe(FormCollection form)
+        {
+            int id = int.Parse(form["MaHD"]);
+            int extendDays = int.Parse(form["extend-days"]);
+            string notes = form["notes"];
+
+            var hoaDon = db.HOADONs.Include("CHITIETHOADONs").FirstOrDefault(h => h.MaHD == id);
+            if (hoaDon == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Cập nhật ngày bắt đầu thuê trong bảng CHITIETHOADON
+            foreach (var chiTiet in hoaDon.CHITIETHOADONs)
+            {
+                chiTiet.ThoiGianThue += extendDays;
+                db.Entry(chiTiet).State = EntityState.Modified;
+            }
+
+           
+
+            db.SaveChanges();
+            return RedirectToAction("Chitiet", new { id = id });
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<chothuexe1.Models.CHITIETHOADON>
+﻿@model IEnumerable<chothuexe1.Models.HOADON>
 <!DOCTYPE html>
 <html>
 
@@ -156,9 +156,14 @@
 
                     <div class="navbar-collapse" id="">
                         <div class="user_option">
-                            <a href="">
-                                Login
-                            </a>
+                            @if (Session["HoTen"] != null)
+                            {
+                                <span>@Session["HoTen"].ToString()</span>
+                                <a href="@Url.Action("Logout", "TAIKHOANs")">, Đăng Xuất</a> }
+                            else
+                            {
+                                <a href="@Url.Action("Login", "TAIKHOANs")">Đăng Nhập</a>
+                                <a href="@Url.Action("Signup", "TAIKHOANs")">/ Đăng Ký</a>}
                         </div>
                         <div class="custom_menu-btn">
                             <button onclick="openNav()">
@@ -213,30 +218,34 @@
 
         @foreach (var item in Model)
         {
-            <div class="bike-card">
-                <img src="~/fonts/images/@item.XETHUE.AnhDaiDien" alt="Wave RSX FI 110">
-                <div class="bike-details">
-                    <h2>@item.XETHUE.TenXe</h2>
-                    <ul>
-                        <li><img src="~/fonts/images/helmet_icon.png" alt="Mũ bảo hiểm"> Mũ bảo hiểm đi kèm</li>
-                        <li><img src="~/fonts/images/maintenance_icon.png" alt="Bảo dưỡng"> Xe được bảo dưỡng định kỳ</li>
-                        <li><img src="~/fonts/images/customer_service_icon.png" alt="Dịch vụ khách hàng"> Dịch vụ khách hàng 24/7 của THUEXERE</li>
-                        <li><img src="~/fonts/images/insurance_icon.png" alt="Bảo hiểm"> Bảo hiểm xe đi kèm</li>
-                        <li><img src="~/fonts/images/unlimited_icon.png" alt="Không giới hạn"> Không giới hạn số đạm</li>
-                        <li><img src="~/fonts/images/document_icon.png" alt="Giấy tờ"> Giấy tờ xe photo</li>
-                        <li><img src="~/fonts/images/wifi_icon.png" alt="WiFi"> Bộ phát Wifi di động</li>
-                    </ul>
-                </div>
-                <div class="rent-details-container">
-                    <div class="rent-details">
-                        <p>150.000 đ /ngày</p>
-                        <p>@item.HOADON.NgayBatDau</p>
-                        <p class="total-cost">Tổng 150.000 đ cho 1 ngày</p>
-                        <p class="additional-info">Không bao gồm thuế và (các) bảo hiểm</p>
-                        <button onclick="location.href='@Url.Action("Chitiet", "HOADONs", new { id = item.MaHD, maxe = item.MaXe })'">Gia hạn thêm</button>
+            foreach (var chiTiet in item.CHITIETHOADONs)
+            {
+                <div class="bike-card">
+                    <img src="~/fonts/images/@chiTiet.XETHUE.AnhDaiDien" alt="Wave RSX FI 110" />
+                    <div class="bike-details">
+                        <h2>@chiTiet.XETHUE.TenXe</h2>
+                        <ul>
+                            <li><img src="~/fonts/images/helmet_icon.png" alt="Mũ bảo hiểm"> Mũ bảo hiểm đi kèm</li>
+                            <li><img src="~/fonts/images/maintenance_icon.png" alt="Bảo dưỡng"> Xe được bảo dưỡng định kỳ</li>
+                            <li><img src="~/fonts/images/customer_service_icon.png" alt="Dịch vụ khách hàng"> Dịch vụ khách hàng 24/7 của THUEXERE</li>
+                            <li><img src="~/fonts/images/insurance_icon.png" alt="Bảo hiểm"> Bảo hiểm xe đi kèm</li>
+                            <li><img src="~/fonts/images/unlimited_icon.png" alt="Không giới hạn"> Không giới hạn số đạm</li>
+                            <li><img src="~/fonts/images/document_icon.png" alt="Giấy tờ"> Giấy tờ xe photo</li>
+                            <li><img src="~/fonts/images/wifi_icon.png" alt="WiFi"> Bộ phát Wifi di động</li>
+                        </ul>
+                    </div>
+                    <div class="rent-details-container">
+                        <div class="rent-details">
+                            <p>@chiTiet.XETHUE.GiaThue / ngày</p>
+                            <p>@item.NgayBatDau</p>
+                            <p class="total-cost">Tổng @chiTiet.XETHUE.GiaThue cho 1 ngày</p>
+                            <p class="additional-info">Không bao gồm thuế và (các) bảo hiểm</p>
+                            <button class="btn btn-light">  @Html.ActionLink("Gia hạn", "Chitiet", new { id = item.MaHD })</button>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+
         }
 
     </div>

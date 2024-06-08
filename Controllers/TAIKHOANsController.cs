@@ -70,6 +70,7 @@ namespace chothuexe1.Controllers
             {
                 // Lưu họ và tên vào Session
                 Session["HoTen"] = user.HoVaTen;
+                Session["MaTK"] = user.MaTK;
                 return RedirectToAction("Index", "Home");
             }
             else
