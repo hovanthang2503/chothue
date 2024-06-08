@@ -12,20 +12,21 @@ namespace chothuexe1.Controllers
     {
         private DoAnPhanMemEntities db = new DoAnPhanMemEntities();
         // GET: HOADONs
-        public ActionResult Index(int? matk)
+        public ActionResult Index()
         {
-            if (!matk.HasValue || matk <= 0)
+            return View(db.CHITIETHOADONs.ToList());
+        }
+
+        // GET: HOADONs/Edit/5?maxe=10
+        public ActionResult Chitiet(int? id, int? maxe)
+        {
+            if (id == null || maxe == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var chiTietHoaDon = db.CHITIETHOADONs
-                .Include(c => c.XETHUE)
-                .Include(c => c.HOADON)
-                .Where(c => c.HOADON.MaTK == matk)
-                .ToList();
-
-            if (chiTietHoaDon == null || !chiTietHoaDon.Any())
+            CHITIETHOADON chiTietHoaDon = db.CHITIETHOADONs.FirstOrDefault(c => c.MaHD == id && c.MaXe == maxe);
+            if (chiTietHoaDon == null)
             {
                 return HttpNotFound();
             }
@@ -33,23 +34,5 @@ namespace chothuexe1.Controllers
             return View(chiTietHoaDon);
         }
 
-        // GET: HOADONs/Edit/5
-        public ActionResult Chitiet(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var hoadon = db.HOADONs.Include(h => h.CHITIETHOADONs)
-                                    .FirstOrDefault(h => h.MaHD == id);
-
-            if (hoadon == null)
-            {
-                return HttpNotFound();
-            }
-
-            return View(hoadon);
-        }
     }
 }

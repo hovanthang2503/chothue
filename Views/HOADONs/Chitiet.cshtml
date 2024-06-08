@@ -1,17 +1,56 @@
-﻿@model chothuexe1.Models.HOADON
-    Layout = null;
+﻿@model chothuexe1.Models.CHITIETHOADON
+
+@{
+    ViewBag.Title = "Edit Chi Tiet Hoa Don";
 }
 
-<!DOCTYPE html>
+<h2>Edit Chi Tiet Hoa Don</h2>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title></title>
-</head>
-<body>
-    <div>
-        @Html.EditorFor(model => model.CHITIETHOADONs., new { htmlAttributes = new { @class = "form-control" } })
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>CHITIETHOADON</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    @Html.HiddenFor(model => model.MaHD)
+    @Html.HiddenFor(model => model.MaXe)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ThoiGianThue, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ThoiGianThue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.ThoiGianThue, "", new { @class = "text-danger" })
+        </div>
     </div>
-</body>
-</html>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.TrangThaiThue, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.TrangThaiThue, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TrangThaiThue, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Thời gian thuê</label>
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HOADON.NgayBatDau, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HOADON.NgayBatDau, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

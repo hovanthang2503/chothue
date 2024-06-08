@@ -233,7 +233,7 @@
                         <p>@item.HOADON.NgayBatDau</p>
                         <p class="total-cost">Tổng 150.000 đ cho 1 ngày</p>
                         <p class="additional-info">Không bao gồm thuế và (các) bảo hiểm</p>
-                        <button> @Html.ActionLink("Gia hạn thêm", "Chitiet", new { id = item.MaHD })</button>
+                        <button onclick="location.href='@Url.Action("Chitiet", "HOADONs", new { id = item.MaHD, maxe = item.MaXe })'">Gia hạn thêm</button>
                     </div>
                 </div>
             </div>
