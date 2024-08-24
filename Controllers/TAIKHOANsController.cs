@@ -32,12 +32,18 @@ namespace chothuexe1.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.TAIKHOANs.Any(x => x.TenDangNhap == taikhoan.TenDangNhap))
+                if (db.TAIKHOANs.Any(x => x.SDT == taikhoan.SDT))
                 {
-                    ModelState.AddModelError("TenDangNhap", "Tên đăng nhập đã tồn tại.");
+                    ModelState.AddModelError("SDT", "Số điện thoại đã tồn tại");
+                }
+                else if (db.TAIKHOANs.Any(x => x.CCCD == taikhoan.CCCD))
+                {
+                    ModelState.AddModelError("CCCD", "Số CCCD đã tồn tại");
                 }
                 else
                 {
+                    taikhoan.Quyen = 1;
+                    taikhoan.TrangThai = true;
                     db.TAIKHOANs.Add(taikhoan);
                     db.SaveChanges();
 
@@ -73,6 +79,7 @@ namespace chothuexe1.Controllers
                 Session["MaTK"] = user.MaTK;
                 return RedirectToAction("Index", "Home");
             }
+
             else
             {
                 ViewBag.Notification = "Sai số điện thoại hoặc mật khẩu";

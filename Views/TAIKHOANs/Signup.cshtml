@@ -43,7 +43,7 @@
                             Số Căn Cước Công Dân<span class="req">*</span>
                         </label>
                         @Html.EditorFor(model => model.CCCD, new { htmlAttributes = new { @class = "form-control", required = "required", autocomplete = "off", pattern = "[0-9]{12}" } })
-                        @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.CCCD, "", new { @class = "text-danger-error-message-exist" })
                     </div>
 
                     <div class="field-wrap">
@@ -51,7 +51,7 @@
                             Số Điện Thoại<span class="req">*</span>
                         </label>
                         @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control", required = "required", autocomplete = "off", pattern = "[0-9]{10}" } })
-                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger-error-message-exist" })
                     </div>
 
                     <div class="field-wrap">

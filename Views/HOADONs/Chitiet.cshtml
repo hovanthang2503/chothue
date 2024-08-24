@@ -343,6 +343,11 @@
                     decimal? tongtien = thoiGianThue * giaThue;
                     <p class="total-amount">Tổng tiền: <strong>@tongtien VND</strong></p>
                 }
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
                 <button id="btnGiaHan" type="submit">Gia Hạn Thêm</button>
             </div>
         }
@@ -429,6 +434,51 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
     <script src="~/fonts/js/custom.js"></script>
 
+<<<<<<< Updated upstream
+=======
+
+    <script>
+        $(document).ready(function () {
+            // Ban đầu tổng tiền là 0
+            var totalAmount = 0;
+
+            // Hàm tính toán tổng tiền dựa trên số ngày gia hạn và giá thuê
+            function calculateTotalAmount(extendDays, unitPrice) {
+                return extendDays * unitPrice;
+            }
+
+            // Sự kiện thay đổi số ngày gia hạn
+            $('#extend-days').on('change', function () {
+                var extendDays = parseInt($(this).val());
+                var unitPrice = parseFloat($('#total-amount').data('unitprice'));
+
+                // Tính tổng tiền
+                totalAmount = calculateTotalAmount(extendDays, unitPrice);
+
+                // Hiển thị tổng tiền lên giao diện
+                $('#total-amount strong').text(totalAmount + ' VND');
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            // Sự kiện click vào button gia hạn thêm
+            $('#btnGiaHan').on('click', function (event) {
+                // Hiển thị hộp thoại xác nhận
+                var isConfirmed = confirm('Bạn có chắc chắn muốn gia hạn thêm không?');
+
+                // Nếu người dùng không đồng ý
+                if (!isConfirmed) {
+                    // Ngăn chặn sự kiện mặc định của button
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+
+
+>>>>>>> Stashed changes
 </body>
 
 

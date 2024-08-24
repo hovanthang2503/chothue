@@ -180,6 +180,8 @@
     <Content Include="fonts\images\book-car.png" />
     <Content Include="fonts\images\booking.jpg" />
     <Content Include="fonts\images\booking1.jpg" />
+    <Content Include="fonts\images\booking2.png" />
+    <Content Include="fonts\images\booking3.jpg" />
     <Content Include="fonts\images\c-1.png" />
     <Content Include="fonts\images\c-2.png" />
     <Content Include="fonts\images\c-3.png" />
